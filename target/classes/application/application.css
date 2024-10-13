@@ -5,11 +5,20 @@
 }
 
 .label{
-	-fx-font-size: 20;
+	-fx-font-size: 16;
 	-fx-font-family: "Lucida Console";
 	-fx-text-fill: "white";
 	-fx-alignment: center;
 }
 #labeltitle{
-	-fx-font-size: 60;
+	-fx-font-size: 30;
+}
+#adminloginlabel{
+	-fx-font-size: 20;
+}
+#userloginlabel{
+	-fx-font-size: 20;
+}
+#userregistrationlabel{
+	-fx-font-size: 15;
 }

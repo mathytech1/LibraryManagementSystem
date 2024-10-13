@@ -2,9 +2,8 @@ package application;
 
 public class RegularUser extends User {
 
-	public RegularUser(String firstName, String lastName, String userID, String username, String password,
-			String role) {
-		super(firstName, lastName, userID, username, password, role);
+	public RegularUser(String firstName, String lastName, String username, String password, String role) {
+		super(firstName, lastName, username, password, role);
 		// TODO Auto-generated constructor stub
 	}
 

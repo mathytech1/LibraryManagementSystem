@@ -8,11 +8,13 @@ abstract public class User {
 	private String username;
 	private String password;
 	private String role;
+	private static int idNumber = 1000;
 
-	public User(String firstName, String lastName, String userID, String username, String password, String role) {
+	public User(String firstName, String lastName, String username, String password, String role) {
+		idNumber++;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userID = userID;
+		this.userID = "S" + idNumber;
 		this.username = username;
 		this.password = password;
 		this.role = role;

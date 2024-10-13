@@ -8,13 +8,13 @@ import javafx.stage.Stage;
 
 public class LibraryManagementSystem extends Application {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("LibraryManagementSystem.fxml"));
-			Scene scene = new Scene(root, 800, 600);
+			Parent root = FXMLLoader.load(getClass().getResource("adminLogin.fxml"));
+			Scene scene = new Scene(root, 600, 350);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			stage.setScene(scene);
+			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

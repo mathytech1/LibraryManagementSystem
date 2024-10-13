@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+   <children>
+      <TextField layoutX="394.0" layoutY="118.0" promptText="first name" />
+      <TextField layoutX="394.0" layoutY="150.0" promptText="last name" />
+      <Button layoutX="394.0" layoutY="270.0" mnemonicParsing="false" text="Register" />
+      <Button layoutX="485.0" layoutY="270.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="26.0" prefWidth="59.0" text="&lt; Back" />
+      <Label fx:id="labeltitle" layoutX="-1.0" layoutY="27.0" prefHeight="35.0" prefWidth="600.0" text="Welcome To XYZ Library" />
+      <Label fx:id="userregistrationlabel" layoutX="395.0" layoutY="92.0" text="User Registration" />
+      <TextField layoutX="395.0" layoutY="181.0" promptText="username" />
+      <TextField layoutX="395.0" layoutY="217.0" promptText="password" />
+      <ImageView fitHeight="240.0" fitWidth="330.0" layoutX="14.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/library1.jpeg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
