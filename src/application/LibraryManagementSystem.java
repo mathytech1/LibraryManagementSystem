@@ -10,7 +10,7 @@ public class LibraryManagementSystem extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("adminLogin.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
 			Scene scene = new Scene(root, 600, 350);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);

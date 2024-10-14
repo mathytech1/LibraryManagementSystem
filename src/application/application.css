@@ -22,3 +22,27 @@
 #userregistrationlabel{
 	-fx-font-size: 15;
 }
+#adminLoginErrorLabel{
+	-fx-font-size: 10;
+	-fx-text-fill: "red";
+}
+#userLoginErrorLabel{
+	-fx-font-size: 10;
+	-fx-text-fill: "red";
+}
+#userRegistrationErrorLabel{
+	-fx-font-size: 10;
+	-fx-text-fill: "red";
+}
+#userRegistrationSuccessLabel{
+	-fx-font-size: 10;
+	-fx-text-fill: "green";
+}
+#bookAddErrorLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "red";
+}
+#bookAddSuccess{
+	-fx-font-size: 13;
+	-fx-text-fill: "green";
+}

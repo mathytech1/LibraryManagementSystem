@@ -5,11 +5,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookManagementController">
    <children>
       <Button layoutX="483.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Search Book" />
-      <Button layoutX="483.0" layoutY="104.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Add Book" />
-      <Button layoutX="483.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Update Book" />
+      <Button fx:id="adminAddBookButton" layoutX="483.0" layoutY="104.0" mnemonicParsing="false" onAction="#addBookPage" prefHeight="26.0" prefWidth="86.0" text="Add Book" />
+      <Button fx:id="adminUpdateBookButton" layoutX="483.0" layoutY="149.0" mnemonicParsing="false" onAction="#updateBookPage" prefHeight="26.0" prefWidth="86.0" text="Update Book" />
       <Button layoutX="483.0" layoutY="195.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Remove Book" />
       <Button layoutX="483.0" layoutY="341.0" mnemonicParsing="false" text="View Admins" />
       <TableView layoutX="26.0" layoutY="55.0" prefHeight="314.0" prefWidth="438.0">

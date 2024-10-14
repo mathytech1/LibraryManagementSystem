@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,12 +10,11 @@
 
 <AnchorPane fx:id="loginlabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <TextField layoutX="391.0" layoutY="120.0" promptText="username" />
-      <TextField layoutX="391.0" layoutY="165.0" promptText="password" />
-      <Button layoutX="391.0" layoutY="207.0" mnemonicParsing="false" text="Login" />
+      <TextField fx:id="userUsernameTextField" layoutX="391.0" layoutY="130.0" promptText="username" />
+      <Button fx:id="userlogin" layoutX="391.0" layoutY="207.0" mnemonicParsing="false" onAction="#userLogin" text="Login" />
       <Label layoutX="391.0" layoutY="291.0" text="New User?" />
-      <Button layoutX="481.0" layoutY="287.0" mnemonicParsing="false" onAction="#userRegistration" text="Register" />
-      <Button layoutX="444.0" layoutY="207.0" mnemonicParsing="false" onAction="#adminLogin" text="Switch to Admin" />
+      <Button layoutX="481.0" layoutY="287.0" mnemonicParsing="false" onAction="#switchToUserRegistration" text="Register" />
+      <Button layoutX="444.0" layoutY="207.0" mnemonicParsing="false" onAction="#switchToAdminLogin" text="Switch to Admin" />
       <Label fx:id="labeltitle" layoutX="-1.0" layoutY="27.0" prefHeight="35.0" prefWidth="600.0" text="Welcome To XYZ Library" />
       <ImageView fitHeight="277.0" fitWidth="337.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,5 +22,7 @@
          </image>
       </ImageView>
       <Label fx:id="userloginlabel" layoutX="391.0" layoutY="85.0" text="User Login" />
+      <PasswordField fx:id="userPasswordTextField" layoutX="391.0" layoutY="169.0" promptText="password" />
+      <Label fx:id="userLoginErrorLabel" layoutX="391.0" layoutY="113.0" prefHeight="18.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

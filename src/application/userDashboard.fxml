@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="479.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Search Book" />
@@ -17,8 +16,8 @@
           <TableColumn prefWidth="68.79998779296875" text="Book ID" />
           <TableColumn prefWidth="130.4000244140625" text="Title" />
             <TableColumn prefWidth="115.20001220703125" text="Author" />
-            <TableColumn prefWidth="64.79998779296875" text="Pub_Year" />
-            <TableColumn prefWidth="65.5999755859375" text="Availablity" />
+            <TableColumn prefWidth="56.79998779296875" text="Pub_Year" />
+            <TableColumn prefWidth="73.60003662109375" text="Availablity" />
         </columns>
       </TableView>
       <Button layoutX="478.0" layoutY="200.0" mnemonicParsing="false" text="View All Book" />
