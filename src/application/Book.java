@@ -1,20 +1,22 @@
 package application;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-public class Book {
+public class Book implements Serializable {
+	private static final long serialVersionUID = 1L; //
 	private String bookID;
 	private String bookTitle;
 	private String author;
-	private Date publichedYear;
+	private LocalDate publichedYear;
 	private boolean isAvailable;
 
-	public Book(String bookID, String bookTitle, String author, Date publichedYear, boolean isAvailable) {
+	public Book(String bookID, String bookTitle, String author, LocalDate publichedYear) {
 		this.bookID = bookID;
 		this.bookTitle = bookTitle;
 		this.author = author;
 		this.publichedYear = publichedYear;
-		this.isAvailable = isAvailable;
+		this.isAvailable = true;
 	}
 
 	public String getBookID() {
@@ -37,11 +39,11 @@ public class Book {
 		this.author = author;
 	}
 
-	public Date getPublichedYear() {
+	public LocalDate getPublichedYear() {
 		return publichedYear;
 	}
 
-	public void setPublichedYear(Date publichedYear) {
+	public void setPublichedYear(LocalDate publichedYear) {
 		this.publichedYear = publichedYear;
 	}
 
@@ -51,6 +53,12 @@ public class Book {
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [bookID=" + bookID + ", bookTitle=" + bookTitle + ", author=" + author + ", publichedYear="
+				+ publichedYear + ", isAvailable=" + isAvailable + "]";
 	}
 
 }

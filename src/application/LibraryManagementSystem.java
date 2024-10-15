@@ -13,6 +13,7 @@ public class LibraryManagementSystem extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
 			Scene scene = new Scene(root, 600, 350);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {

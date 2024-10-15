@@ -16,21 +16,13 @@ import javafx.stage.Stage;
 
 public class LoginController {
 	@FXML
-	private TextField userUsernameTextField;
+	private TextField usernameTextField;
 	@FXML
-	private TextField adminUsernameTextField;
+	private PasswordField passwordTextField;
 	@FXML
-	private PasswordField userPasswordTextField;
+	private Button loginButton;
 	@FXML
-	private PasswordField adminPasswordTextField;
-	@FXML
-	private Button userLoginButton;
-	@FXML
-	private Button adminLoginButton;
-	@FXML
-	private Label userLoginErrorLabel;
-	@FXML
-	private Label adminLoginErrorLabel;
+	private Label loginErrorLabel;
 
 	private Stage stage;
 	private Scene scene;
@@ -40,6 +32,7 @@ public class LoginController {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -49,6 +42,7 @@ public class LoginController {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -58,20 +52,22 @@ public class LoginController {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 	}
 
 	public void userLogin(ActionEvent event) {
-		String username = userUsernameTextField.getText();
-		String password = userPasswordTextField.getText();
-		if (username.equals("user") && password.equals("1234")) {
+		String username = usernameTextField.getText();
+		String password = passwordTextField.getText();
+		if (username.equals("") && password.equals("")) {
 			Parent root;
 			try {
 				root = FXMLLoader.load(getClass().getResource("userDashboard.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				stage.setResizable(false);
 				stage.setScene(scene);
 				stage.show();
 			} catch (IOException e) {
@@ -80,21 +76,21 @@ public class LoginController {
 			}
 		} else {
 			if (username.equals("") && password.equals("")) {
-				userLoginErrorLabel.setText("Enter Credentials pls!");
+				loginErrorLabel.setText("Enter Credentials pls!");
 			} else if (username.equals("")) {
-				userLoginErrorLabel.setText("Enter username pls!");
+				loginErrorLabel.setText("Enter username pls!");
 			} else if (password.equals("")) {
-				userLoginErrorLabel.setText("Enter password pls");
+				loginErrorLabel.setText("Enter password pls");
 			} else {
-				userLoginErrorLabel.setText("Incorrect Credentials!");
+				loginErrorLabel.setText("Incorrect Credentials!");
 			}
 
 		}
 	}
 
 	public void adminLogin(ActionEvent event) {
-		String username = adminUsernameTextField.getText();
-		String password = adminPasswordTextField.getText();
+		String username = usernameTextField.getText();
+		String password = passwordTextField.getText();
 		if (username.equals("a") && password.equals("")) {
 			Parent root;
 			try {
@@ -102,6 +98,7 @@ public class LoginController {
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				stage.setResizable(false);
 				stage.setScene(scene);
 				stage.show();
 			} catch (IOException e) {
@@ -110,16 +107,15 @@ public class LoginController {
 			}
 		} else {
 			if (username.equals("") && password.equals("")) {
-				adminLoginErrorLabel.setText("Enter Credentials pls!");
+				loginErrorLabel.setText("Enter Credentials pls!");
 			} else if (username.equals("")) {
-				adminLoginErrorLabel.setText("Enter username pls!");
+				loginErrorLabel.setText("Enter username pls!");
 			} else if (password.equals("")) {
-				adminLoginErrorLabel.setText("Enter password pls");
+				loginErrorLabel.setText("Enter password pls");
 			} else {
-				adminLoginErrorLabel.setText("Incorrect Credentials!");
+				loginErrorLabel.setText("Incorrect Credentials!");
 			}
 
 		}
 	}
-
 }

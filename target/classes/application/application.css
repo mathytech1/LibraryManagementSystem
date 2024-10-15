@@ -13,22 +13,15 @@
 #labeltitle{
 	-fx-font-size: 30;
 }
-#adminloginlabel{
+#loginlabel{
 	-fx-font-size: 20;
 }
-#userloginlabel{
-	-fx-font-size: 20;
+#loginErrorLabel{
+	-fx-font-size: 10;
+	-fx-text-fill: "red";
 }
 #userregistrationlabel{
 	-fx-font-size: 15;
-}
-#adminLoginErrorLabel{
-	-fx-font-size: 10;
-	-fx-text-fill: "red";
-}
-#userLoginErrorLabel{
-	-fx-font-size: 10;
-	-fx-text-fill: "red";
 }
 #userRegistrationErrorLabel{
 	-fx-font-size: 10;
@@ -45,4 +38,12 @@
 #bookAddSuccess{
 	-fx-font-size: 13;
 	-fx-text-fill: "green";
+}
+#bookFoundLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "green";
+}
+#bookNotFoundLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "red";
 }

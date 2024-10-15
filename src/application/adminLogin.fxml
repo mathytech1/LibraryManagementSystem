@@ -10,8 +10,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <TextField fx:id="adminUsernameTextField" layoutX="391.0" layoutY="128.0" promptText="username" />
-      <Button fx:id="adminLoginButton" layoutX="391.0" layoutY="215.0" mnemonicParsing="false" onAction="#adminLogin" text="Login" />
+      <TextField fx:id="usernameTextField" layoutX="391.0" layoutY="128.0" promptText="username" />
+      <Button fx:id="loginButton" layoutX="391.0" layoutY="215.0" mnemonicParsing="false" onAction="#adminLogin" text="Login" />
       <Button layoutX="444.0" layoutY="215.0" mnemonicParsing="false" onAction="#switchToUserLogin" text="Switch to User" />
       <Label fx:id="labeltitle" layoutX="-1.0" layoutY="27.0" prefHeight="35.0" prefWidth="600.0" text="Welcome To XYZ Library" />
       <ImageView fitHeight="277.0" fitWidth="337.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
@@ -19,8 +19,8 @@
             <Image url="@images/library1.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="adminloginlabel" layoutX="391.0" layoutY="85.0" text="Admin Login" />
-      <PasswordField fx:id="adminPasswordTextField" layoutX="391.0" layoutY="172.0" promptText="password" />
-      <Label fx:id="adminLoginErrorLabel" layoutX="391.0" layoutY="111.0" prefHeight="18.0" prefWidth="150.0" />
+      <Label fx:id="loginlabel" layoutX="391.0" layoutY="85.0" text="Admin Login" />
+      <PasswordField fx:id="passwordTextField" layoutX="391.0" layoutY="172.0" promptText="password" />
+      <Label fx:id="loginErrorLabel" layoutX="391.0" layoutY="111.0" prefHeight="18.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
