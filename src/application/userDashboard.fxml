@@ -9,7 +9,7 @@
    <children>
       <Button fx:id="searchBookPageButton" layoutX="479.0" layoutY="56.0" mnemonicParsing="false" onAction="#searchBookPage" prefHeight="26.0" prefWidth="86.0" text="Search Book" />
       <Button layoutX="479.0" layoutY="104.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Borrow Book" />
-      <Button layoutX="479.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Return Book" />
+      <Button fx:id="returnBookPage" layoutX="479.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Return Book" />
       <Button layoutX="479.0" layoutY="193.0" mnemonicParsing="false" text="Update your info" />
       <TableView layoutX="26.0" layoutY="55.0" prefHeight="314.0" prefWidth="444.0">
         <columns>

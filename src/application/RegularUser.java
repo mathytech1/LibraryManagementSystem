@@ -19,10 +19,10 @@ public class RegularUser extends User {
 
 	}
 
-	@Override
-	public void viewDashboard() {
-		// TODO Auto-generated method stub
-
-	}
+//	@Override
+//	public void viewDashboard() {
+//		// TODO Auto-generated method stub
+//
+//	}
 
 }

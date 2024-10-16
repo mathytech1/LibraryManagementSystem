@@ -40,8 +40,6 @@ public class BookManagementController {
 
 	private Stage stage;
 	private Scene scene;
-	private LoginController loginController;
-
 	private HashMap<String, Book> books;
 	private final String FILE_NAME = "src\\application\\files\\books.dat";
 
@@ -153,8 +151,14 @@ public class BookManagementController {
 		bookFoundLabel.setText("");
 		bookNotFoundLabel.setText("");
 
-		if (bookID.equals("S0001")) {
-			bookFoundLabel.setText("Found one book.");
+		books = readBooks();
+
+		if (bookID.equals("")) {
+			bookNotFoundLabel.setText("Please Enter Book ID!");
+		} else if (books.containsKey(bookID)) {
+			bookFoundLabel.setText("Book Found!.");
+			Book book = books.get(bookID);
+			System.out.println(book);
 		} else {
 			bookNotFoundLabel.setText("Could not Find " + bookID);
 		}

@@ -1,21 +1,25 @@
 package application;
 
+import java.io.Serializable;
+
 // Common functionality for Admin and RegularUser.
-abstract public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String userID;
 	private String username;
 	private String password;
 	private String role;
-	private static int idNumber = 1000;
+//	private static int idNumber = 1000;
 
-	public User(String firstName, String lastName, String username, String password, String role) {
-		idNumber++;
+	public User(String username, String firstName, String lastName, String password, String role) {
+		// idNumber++;
+		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userID = "S" + idNumber;
-		this.username = username;
+		// this.userID = "S" + idNumber;
 		this.password = password;
 		this.role = role;
 	}
@@ -48,6 +52,10 @@ abstract public class User {
 		this.username = username;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -64,6 +72,12 @@ abstract public class User {
 
 	}
 
-	abstract public void viewDashboard();
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", role=" + role
+				+ "]";
+	}
+
+	// abstract public void viewDashboard();
 
 }

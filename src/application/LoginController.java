@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,10 @@ public class LoginController {
 
 	private Stage stage;
 	private Scene scene;
+	private HashMap<String, User> users;
+	private BookManagementController bookController;
+	private RegistrationController registrationController;
+	private static final String FILE_NAME = "src\\application\\files\\users.dat";
 
 	public void switchToUserLogin(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
@@ -60,9 +65,17 @@ public class LoginController {
 	public void userLogin(ActionEvent event) {
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
-		if (username.equals("") && password.equals("")) {
+
+		users = registrationController.readUsers();
+
+		if (users.containsKey(username) && password.equals(users.get(username).getPassword())) {
 			Parent root;
 			try {
+				HashMap<String, Book> books = bookController.readBooks();
+				for (Book book : books.values()) {
+					System.out.println(book);
+				}
+
 				root = FXMLLoader.load(getClass().getResource("userDashboard.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
@@ -118,4 +131,5 @@ public class LoginController {
 
 		}
 	}
+
 }
