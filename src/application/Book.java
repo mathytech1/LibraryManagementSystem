@@ -9,14 +9,14 @@ public class Book implements Serializable {
 	private String bookTitle;
 	private String author;
 	private LocalDate publichedYear;
-	private boolean isAvailable;
+	private String isAvailable = "Unavailable";
 
 	public Book(String bookID, String bookTitle, String author, LocalDate publichedYear) {
 		this.bookID = bookID;
 		this.bookTitle = bookTitle;
 		this.author = author;
 		this.publichedYear = publichedYear;
-		this.isAvailable = true;
+		this.isAvailable = "Available";
 	}
 
 	public String getBookID() {
@@ -47,11 +47,11 @@ public class Book implements Serializable {
 		this.publichedYear = publichedYear;
 	}
 
-	public boolean isAvailable() {
+	public String getIsAvailable() {
 		return isAvailable;
 	}
 
-	public void setAvailable(boolean isAvailable) {
+	public void setAvailable(String isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 

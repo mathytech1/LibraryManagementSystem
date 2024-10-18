@@ -14,15 +14,17 @@
       <Button fx:id="searchBookButton" layoutX="372.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchBook" text="Search" />
       <Button fx:id="backToMainDashboard" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToUserDashBoard" text="&lt; Back" />
       <Label fx:id="bookNotFoundLabel" layoutX="197.0" layoutY="98.0" prefHeight="18.0" prefWidth="175.0" />
-      <TableView layoutX="40.0" layoutY="121.0" prefHeight="237.0" prefWidth="498.0">
+      <TableView layoutX="17.0" layoutY="121.0" prefHeight="238.0" prefWidth="570.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Book ID" />
           <TableColumn prefWidth="134.39996337890625" text="Title" />
             <TableColumn prefWidth="142.4000244140625" text="Author" />
             <TableColumn text="Pub_Year" />
             <TableColumn prefWidth="65.60003662109375" text="Available" />
+            <TableColumn prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
       <Label fx:id="bookFoundLabel" layoutX="197.0" layoutY="99.0" prefHeight="18.0" prefWidth="175.0" />
+      <Button fx:id="bookBorrowButton" layoutX="483.0" layoutY="366.0" mnemonicParsing="false" text="Borrow" />
    </children>
 </AnchorPane>

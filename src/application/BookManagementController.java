@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,9 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class BookManagementController {
@@ -37,10 +41,12 @@ public class BookManagementController {
 	private Label bookNotFoundLabel;
 	@FXML
 	private Label bookFoundLabel;
+	@FXML
+	private AnchorPane scenePane;
 
 	private Stage stage;
 	private Scene scene;
-	private HashMap<String, Book> books;
+	private TreeMap<String, Book> books;
 	private final String FILE_NAME = "src\\application\\files\\books.dat";
 
 	public void addBookPage(ActionEvent event) {
@@ -146,21 +152,28 @@ public class BookManagementController {
 	}
 
 	public void searchBook(ActionEvent event) {
-		String bookID = bookIdTextField.getText();
+		String bookTitle = bookTitleTextField.getText();
 
 		bookFoundLabel.setText("");
 		bookNotFoundLabel.setText("");
 
 		books = readBooks();
 
-		if (bookID.equals("")) {
-			bookNotFoundLabel.setText("Please Enter Book ID!");
-		} else if (books.containsKey(bookID)) {
-			bookFoundLabel.setText("Book Found!.");
-			Book book = books.get(bookID);
-			System.out.println(book);
+		if (bookTitle.equals("")) {
+			bookNotFoundLabel.setText("Please Enter Book Title!");
 		} else {
-			bookNotFoundLabel.setText("Could not Find " + bookID);
+			int counter = 0;
+			for (Book book : books.values()) {
+				if (book.getBookTitle().toLowerCase().contains(bookTitle.toLowerCase())) {
+					System.out.println(book);
+					counter++;
+				}
+			}
+			if (counter > 0) {
+				bookFoundLabel.setText("Book Found!.");
+			} else {
+				bookNotFoundLabel.setText("Could not Find " + bookTitle);
+			}
 		}
 	}
 
@@ -187,10 +200,10 @@ public class BookManagementController {
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<String, Book> readBooks() {
-		books = new HashMap<>();
+	public TreeMap<String, Book> readBooks() {
+		books = new TreeMap<>();
 		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-			books = (HashMap<String, Book>) reader.readObject(); // Reading the entire map
+			books = (TreeMap<String, Book>) reader.readObject(); // Reading the entire map
 		} catch (FileNotFoundException e) {
 			// If the file doesn't exist, return an empty map
 			System.out.println("File not found, initializing empty book list.");
@@ -200,7 +213,7 @@ public class BookManagementController {
 		return books;
 	}
 
-	private void writeBooks(HashMap<String, Book> books2) {
+	private void writeBooks(TreeMap<String, Book> books2) {
 		// TODO Auto-generated method stub
 		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
 			writer.writeObject(books2);
@@ -214,7 +227,7 @@ public class BookManagementController {
 	}
 
 	public void backToAdminDashBoard(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("adminDashboard.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("adminDashboardTest.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -233,13 +246,35 @@ public class BookManagementController {
 		stage.show();
 	}
 
-	public void logout(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
+	public void logout(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("You're about to logout!");
+		alert.setContentText("Are you sure you want to exit?");
+
+		if (alert.showAndWait().get() == ButtonType.OK) {
+			stage = (Stage) scenePane.getScene().getWindow();
+			System.out.println("Successfuly logout");
+			stage.close();
+		}
+
+//		Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
+//		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//		scene = new Scene(root);
+//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+//		stage.setResizable(false);
+//		stage.setScene(scene);
+//		stage.show();
+	}
+
+	public void viewListPage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("viewTest.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+
 	}
 }

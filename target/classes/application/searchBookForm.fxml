@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookManagementController">
    <children>
-      <TextField fx:id="bookIdTextField" layoutX="197.0" layoutY="72.0" prefHeight="26.0" prefWidth="175.0" promptText="book Id" />
-      <Label layoutX="109.0" layoutY="76.0" prefHeight="18.0" prefWidth="88.0" text="Book ID" />
+      <TextField fx:id="bookTitleTextField" layoutX="197.0" layoutY="72.0" prefHeight="26.0" prefWidth="175.0" promptText="book title" />
+      <Label layoutX="109.0" layoutY="76.0" prefHeight="18.0" prefWidth="88.0" text="Book title" />
       <Button fx:id="searchBookButton" layoutX="372.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchBook" text="Search" />
       <Button fx:id="backToMainDashboard" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToUserDashBoard" text="&lt; Back" />
       <Label fx:id="bookNotFoundLabel" layoutX="197.0" layoutY="98.0" prefHeight="18.0" prefWidth="175.0" />

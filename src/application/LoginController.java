@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +29,8 @@ public class LoginController {
 	private Stage stage;
 	private Scene scene;
 	private HashMap<String, User> users;
-	private BookManagementController bookController;
-	private RegistrationController registrationController;
+	private BookManagementController bookController = new BookManagementController();
+	private RegistrationController registrationController = new RegistrationController();
 	private static final String FILE_NAME = "src\\application\\files\\users.dat";
 
 	public void switchToUserLogin(ActionEvent event) throws IOException {
@@ -71,7 +72,7 @@ public class LoginController {
 		if (users.containsKey(username) && password.equals(users.get(username).getPassword())) {
 			Parent root;
 			try {
-				HashMap<String, Book> books = bookController.readBooks();
+				TreeMap<String, Book> books = bookController.readBooks();
 				for (Book book : books.values()) {
 					System.out.println(book);
 				}
@@ -107,6 +108,11 @@ public class LoginController {
 		if (username.equals("a") && password.equals("")) {
 			Parent root;
 			try {
+				TreeMap<String, Book> books = bookController.readBooks();
+				for (Book book : books.values()) {
+					System.out.println(book);
+				}
+
 				root = FXMLLoader.load(getClass().getResource("adminDashboard.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
