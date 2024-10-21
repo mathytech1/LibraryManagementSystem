@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -17,6 +18,10 @@ public class Main extends Application {
 			Scene scene = new Scene(root, 600, 350);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
+			Image icon = new Image(getClass().getResourceAsStream("/application/images/libraryIcon.png"));
+			stage.setTitle("Digital Library");
+			stage.getIcons().add(icon);
+			stage.setResizable(false);
 			stage.show();
 
 			stage.setOnCloseRequest(event -> {
