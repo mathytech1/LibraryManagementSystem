@@ -13,7 +13,7 @@ public class LibraryManagementSystem extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("adminDashboardTest.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
 			Scene scene = new Scene(root, 650, 400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setResizable(false);
@@ -41,13 +41,6 @@ public class LibraryManagementSystem extends Application {
 			stage.close();
 		}
 
-//		Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
-//		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//		scene = new Scene(root);
-//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//		stage.setResizable(false);
-//		stage.setScene(scene);
-//		stage.show();
 	}
 
 	public static void main(String[] args) {

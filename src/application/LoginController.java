@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
@@ -24,11 +23,11 @@ public class LoginController {
 	@FXML
 	private Button loginButton;
 	@FXML
-	private Label loginErrorLabel;
+	private Label errorLabel;
 
 	private Stage stage;
 	private Scene scene;
-	private HashMap<String, User> users;
+	private TreeMap<String, User> users;
 	private BookManagementController bookController = new BookManagementController();
 	private RegistrationController registrationController = new RegistrationController();
 	private static final String FILE_NAME = "src\\application\\files\\users.dat";
@@ -77,7 +76,7 @@ public class LoginController {
 					System.out.println(book);
 				}
 
-				root = FXMLLoader.load(getClass().getResource("userDashboard.fxml"));
+				root = FXMLLoader.load(getClass().getResource("userDashboardTest.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -90,13 +89,13 @@ public class LoginController {
 			}
 		} else {
 			if (username.equals("") && password.equals("")) {
-				loginErrorLabel.setText("Enter Credentials pls!");
+				errorLabel.setText("Enter Credentials pls!");
 			} else if (username.equals("")) {
-				loginErrorLabel.setText("Enter username pls!");
+				errorLabel.setText("Enter username pls!");
 			} else if (password.equals("")) {
-				loginErrorLabel.setText("Enter password pls");
+				errorLabel.setText("Enter password pls");
 			} else {
-				loginErrorLabel.setText("Incorrect Credentials!");
+				errorLabel.setText("Incorrect Credentials!");
 			}
 
 		}
@@ -113,7 +112,7 @@ public class LoginController {
 					System.out.println(book);
 				}
 
-				root = FXMLLoader.load(getClass().getResource("adminDashboard.fxml"));
+				root = FXMLLoader.load(getClass().getResource("adminDashboardTest.fxml"));
 				stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -126,13 +125,13 @@ public class LoginController {
 			}
 		} else {
 			if (username.equals("") && password.equals("")) {
-				loginErrorLabel.setText("Enter Credentials pls!");
+				errorLabel.setText("Enter Credentials pls!");
 			} else if (username.equals("")) {
-				loginErrorLabel.setText("Enter username pls!");
+				errorLabel.setText("Enter username pls!");
 			} else if (password.equals("")) {
-				loginErrorLabel.setText("Enter password pls");
+				errorLabel.setText("Enter password pls");
 			} else {
-				loginErrorLabel.setText("Incorrect Credentials!");
+				errorLabel.setText("Incorrect Credentials!");
 			}
 
 		}

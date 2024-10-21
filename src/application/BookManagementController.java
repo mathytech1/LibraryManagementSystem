@@ -20,7 +20,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -34,19 +37,41 @@ public class BookManagementController {
 	@FXML
 	private DatePicker bookPubYear;
 	@FXML
-	private Label bookAddErrorLabel;
+	private Label errorLabel;
 	@FXML
-	private Label bookAddSuccess;
-	@FXML
-	private Label bookNotFoundLabel;
-	@FXML
-	private Label bookFoundLabel;
+	private Label successLabel;
+
 	@FXML
 	private AnchorPane scenePane;
+	@FXML
+	private RadioButton yesRadioButton;
+	@FXML
+	private RadioButton noRadioButton;
+	@FXML
+	private ToggleGroup group;
+	@FXML
+	private TextField oldUsernameTextField;
+
+	@FXML
+	private TextField usernameTextField;
+
+	@FXML
+	private TextField firstNameTextField;
+
+	@FXML
+	private TextField lastNameTextField;
+
+	@FXML
+	private PasswordField passwordField;
+
+	@FXML
+	private PasswordField confirmPasswordField;
 
 	private Stage stage;
 	private Scene scene;
 	private TreeMap<String, Book> books;
+	private TreeMap<String, User> users;
+	private RegistrationController registrationController;
 	private final String FILE_NAME = "src\\application\\files\\books.dat";
 
 	public void addBookPage(ActionEvent event) {
@@ -70,19 +95,19 @@ public class BookManagementController {
 		String bookAuthor = bookAuthorTextField.getText();
 		LocalDate publishedYear = bookPubYear.getValue();
 
-		bookAddSuccess.setText("");
-		bookAddErrorLabel.setText("");
+		errorLabel.setText("");
+		successLabel.setText("");
 
 		if (!bookID.equals("") && !bookTitle.equals("") && !bookAuthor.equals("") && publishedYear != null) {
 			books = readBooks();
 			Book newBook = new Book(bookID, bookTitle, bookAuthor, publishedYear);
 
 			if (books.containsKey(newBook.getBookID())) {
-				bookAddErrorLabel.setText("Book ID already exists!");
+				errorLabel.setText("Book ID already exists!");
 			} else {
 				books.put(newBook.getBookID(), newBook);
 				writeBooks(books);
-				bookAddSuccess.setText("Book Added Successfuly!");
+				successLabel.setText("Book Added Successfuly!");
 
 				books = readBooks();
 				for (Book book : books.values()) {
@@ -96,7 +121,7 @@ public class BookManagementController {
 			}
 
 		} else {
-			bookAddErrorLabel.setText("Please fill all the boxes!");
+			errorLabel.setText("Please fill all the boxes!");
 		}
 	}
 
@@ -120,19 +145,94 @@ public class BookManagementController {
 		String bookTitle = bookTitleTextField.getText();
 		String bookAuthor = bookAuthorTextField.getText();
 		LocalDate publishedYear = bookPubYear.getValue();
+		RadioButton selected = (RadioButton) group.getSelectedToggle();
+		String available;
 
-		bookAddSuccess.setText("");
-		bookAddErrorLabel.setText("");
+		errorLabel.setText("");
+		successLabel.setText("");
 
-		if (bookID.equals("S0001")) {
-			bookAddSuccess.setText("Book Updated Successfuly!");
-			bookAddSuccess.setText("Book Added Successfuly!");
+		books = readBooks();
+
+		if (books.containsKey(bookID)) {
+			if (bookTitle.equals("")) {
+				bookTitle = books.get(bookID).getBookTitle();
+			}
+			if (bookAuthor.equals("")) {
+				bookAuthor = books.get(bookID).getAuthor();
+			}
+			if (publishedYear == null) {
+				publishedYear = books.get(bookID).getPublichedYear();
+			}
+			if (selected == null) {
+				available = books.get(bookID).getIsAvailable();
+			} else {
+				available = selected.getText();
+				if (available.equals("Yes")) {
+					available = "Available";
+				} else {
+					available = "Unavailable";
+				}
+			}
+
+			Book book = new Book(bookID, bookTitle, bookAuthor, publishedYear);
+			book.setAvailable(available);
+
+			books.remove(bookID);
+			books.put(book.getBookID(), book);
+			writeBooks(books);
+
 			System.out.println(bookID);
 			System.out.println(bookTitle);
 			System.out.println(bookAuthor);
 			System.out.println(publishedYear);
+
+			successLabel.setText("Book Updated Successfuly!");
 		} else {
-			bookAddErrorLabel.setText("Could not find book ID!");
+			errorLabel.setText("Could not find '" + bookID + "!");
+		}
+	}
+
+	@FXML
+	void updateStudentInfo(ActionEvent event) {
+		String oldUsername = oldUsernameTextField.getText();
+		String newUsername = usernameTextField.getText();
+		String firstName = firstNameTextField.getText();
+		String lastName = lastNameTextField.getText();
+		String password = passwordField.getText();
+		String confirmPassword = confirmPasswordField.getText();
+
+		errorLabel.setText("");
+		successLabel.setText("");
+
+		if (oldUsername.equals("") || newUsername.equals("") || firstName.equals("") || lastName.equals("")
+				|| password.equals("") || confirmPassword.equals("")) {
+			errorLabel.setText("Please fill all fields!");
+		} else if (!password.equals(confirmPassword)) {
+			errorLabel.setText("confirm password didn't match");
+		} else {
+			registrationController = new RegistrationController();
+			users = registrationController.readUsers();
+
+			if (users == null) {
+				errorLabel.setText("Sorry, No data found!");
+			}
+			if (users.containsKey(oldUsername)) {
+				User user = new User(newUsername, firstName, lastName, password, "User");
+				users.remove(oldUsername);
+				users.put(user.getUsername(), user);
+
+				successLabel.setText("Info updated successfuly!");
+
+				registrationController.writeUsers(users);
+
+				users = registrationController.readUsers();
+				for (User user2 : users.values()) {
+					System.out.println(user2);
+				}
+
+			} else {
+				errorLabel.setText("Username '" + oldUsername + "' doesn't exist!");
+			}
 		}
 	}
 
@@ -154,13 +254,13 @@ public class BookManagementController {
 	public void searchBook(ActionEvent event) {
 		String bookTitle = bookTitleTextField.getText();
 
-		bookFoundLabel.setText("");
-		bookNotFoundLabel.setText("");
+		successLabel.setText("");
+		errorLabel.setText("");
 
 		books = readBooks();
 
 		if (bookTitle.equals("")) {
-			bookNotFoundLabel.setText("Please Enter Book Title!");
+			errorLabel.setText("Please Enter Book Title!");
 		} else {
 			int counter = 0;
 			for (Book book : books.values()) {
@@ -170,9 +270,9 @@ public class BookManagementController {
 				}
 			}
 			if (counter > 0) {
-				bookFoundLabel.setText("Book Found!.");
+				successLabel.setText("Book Found!.");
 			} else {
-				bookNotFoundLabel.setText("Could not Find " + bookTitle);
+				errorLabel.setText("Could not Find " + bookTitle);
 			}
 		}
 	}
@@ -237,7 +337,7 @@ public class BookManagementController {
 	}
 
 	public void backToUserDashBoard(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("userDashboard.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("userDashboardTest.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

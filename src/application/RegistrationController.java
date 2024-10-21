@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class RegistrationController {
 
 	private Stage stage;
 	private Scene scene;
-	private HashMap<String, User> users;
+	private TreeMap<String, User> users;
 	private static final String FILE_NAME = "src\\application\\files\\users.dat";
 
 	public void userRegistration(ActionEvent event) {
@@ -68,7 +68,7 @@ public class RegistrationController {
 
 			writeUsers(users);
 
-			HashMap<String, User> users2 = readUsers();
+			TreeMap<String, User> users2 = readUsers();
 			for (User user2 : users2.values()) {
 				System.out.println(user2);
 			}
@@ -103,7 +103,7 @@ public class RegistrationController {
 
 			writeUsers(users);
 
-			HashMap<String, User> users2 = readUsers();
+			TreeMap<String, User> users2 = readUsers();
 			for (User user2 : users2.values()) {
 				System.out.println(user2);
 			}
@@ -142,13 +142,13 @@ public class RegistrationController {
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashMap<String, User> readUsers() {
-		users = new HashMap<>();
+	public TreeMap<String, User> readUsers() {
+		users = new TreeMap<>();
 		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
 			if (new File(FILE_NAME).length() == 0) {
 				System.out.println("File is empty, initializing empty user list.");
 			} else {
-				users = (HashMap<String, User>) reader.readObject(); // Reading the entire map
+				users = (TreeMap<String, User>) reader.readObject(); // Reading the entire map
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found, initializing empty user list.");
@@ -160,7 +160,7 @@ public class RegistrationController {
 		return users;
 	}
 
-	private void writeUsers(HashMap<String, User> user2) {
+	public void writeUsers(TreeMap<String, User> user2) {
 		// TODO Auto-generated method stub
 		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
 			writer.writeObject(user2);

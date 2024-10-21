@@ -1,5 +1,7 @@
 package application;
 
+import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,6 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -76,7 +79,32 @@ public class BookController implements Initializable {
 	@FXML
 	private Button updateBookButton;
 
+	@FXML
+	private Label errorLabel;
+
+	@FXML
+	private Label successLabel;
+
+	@FXML
+	private TextField oldUsernameTextField;
+
+	@FXML
+	private TextField usernameTextField;
+
+	@FXML
+	private TextField firstNameTextField;
+
+	@FXML
+	private TextField lastNameTextField;
+
+	@FXML
+	private PasswordField passwordField;
+
+	@FXML
+	private PasswordField confirmPasswordField;
+
 	private TreeMap<String, Book> books;
+	private TreeMap<String, User> users;
 	private final String FILE_NAME = "src\\application\\files\\books.dat";
 
 	@FXML
@@ -136,40 +164,40 @@ public class BookController implements Initializable {
 	@FXML
 	void removeBook(MouseEvent event) {
 		String title = tableView.getSelectionModel().getSelectedItem().getBookTitle();
-//		Alert alert = new Alert(AlertType.CONFIRMATION);
-//		alert.setTitle("Remove");
-//		alert.setHeaderText("You're about to remove a book!");
-//		alert.setContentText("Are you sure you want to remove " + title + "?");
 
-		int index = tableView.getSelectionModel().getSelectedIndex();
-		tableView.getItems().remove(index);
+		successLabel.setText("");
+		errorLabel.setText("");
 
-		books = readBooks();
-		books.remove(tableView.getSelectionModel().getSelectedItem().getBookID());
-//		ArrayList<Book> list = new ArrayList<>();
-//		for (Book book : books.values()) {
-//			list.add(book);
-//		}
-//		list.remove(index);
-//
-//		TreeMap<String, Book> updatedBook = new TreeMap<>();
-//		for (Book book : list) {
-//			updatedBook.put(book.getBookID(), book);
-//		}
+		Book book = tableView.getSelectionModel().getSelectedItem();
+		if (book == null) {
+			errorLabel.setText("Error! No book selected!");
+		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Remove");
+			alert.setHeaderText("You're about to remove a book!");
+			alert.setContentText("Are you sure you want to remove '" + title + "'?");
 
-		writeBooks(books);
+			if (alert.showAndWait().get() == ButtonType.OK) {
+				tableView.getItems().remove(book);
+				books = readBooks();
+				books.remove(book.getBookID());
+				writeBooks(books);
+				successLabel.setText(book.getBookTitle() + " is successfuly removed!");
+			}
+		}
 	}
 
 	@FXML
 	void searchBook(MouseEvent event) {
 		String bookTitle = bookTitleTextField.getText();
 
-		bookNotFoundLabel.setText("");
+		errorLabel.setText("");
+		successLabel.setText("");
 
 		books = readBooks();
 
 		if (bookTitle.equals("")) {
-			bookNotFoundLabel.setText("Please Enter Book Title!");
+			errorLabel.setText("Please Enter Book Title!");
 		} else {
 			int counter = 0;
 			tableView.getItems().clear();
@@ -183,24 +211,130 @@ public class BookController implements Initializable {
 				}
 			}
 			if (counter == 0) {
-				bookNotFoundLabel.setText("Could not Find " + bookTitle);
+				errorLabel.setText("0 matchs found for search '" + bookTitle + "'");
 			}
 		}
 	}
 
-	@FXML
-	void updateBook(MouseEvent event) {
-
-	}
+//	@FXML
+//	void updateBook(MouseEvent event) {
+//		String bookID = 
+//	}
 
 	@FXML
 	void updateBookPage(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("updateBookForm.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setResizable(false);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	@FXML
+	public void returnBookPage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("returnBookForm.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	@FXML
 	void adminRefresh(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("adminDashboardTest.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	@FXML
+	void userRefresh(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("userDashboardTest.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	@FXML
+	void borrowBook(MouseEvent event) {
+		Book selectedBook = tableView.getSelectionModel().getSelectedItem();
+		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+		errorLabel.setText("");
+		successLabel.setText("");
+
+		if (selectedBook == null) {
+			errorLabel.setText("Please select a book first!");
+		} else {
+			if (selectedBook.getIsAvailable().equalsIgnoreCase("Unavailable")) {
+				errorLabel.setText(selectedBook.getBookTitle() + " is unavailable");
+			} else {
+				books = readBooks();
+
+				selectedBook.setAvailable("Unavailable");
+				tableView.getItems().set(selectedIndex, selectedBook);
+				successLabel.setText("You have borrowed " + selectedBook.getBookTitle());
+
+				books.remove(selectedBook.getBookID());
+				books.put(selectedBook.getBookID(), selectedBook);
+
+				writeBooks(books);
+			}
+		}
+	}
+
+	@FXML
+	public void returnBook(MouseEvent event) {
+		Book selectedBook = tableView.getSelectionModel().getSelectedItem();
+		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+		errorLabel.setText("");
+		successLabel.setText("");
+
+		if (selectedBook == null) {
+			errorLabel.setText("Plz select the book to be returned!");
+		} else {
+			if (selectedBook.getIsAvailable().equalsIgnoreCase("available")) {
+				errorLabel.setText("You didn't borrow " + selectedBook.getBookTitle());
+			} else {
+				selectedBook.setAvailable("Available");
+				tableView.getItems().set(selectedIndex, selectedBook);
+				errorLabel.setText("You have returned " + selectedBook.getBookTitle());
+				books = readBooks();
+				books.remove(selectedBook.getBookID());
+				books.put(selectedBook.getBookID(), selectedBook);
+				writeBooks(books);
+			}
+		}
+	}
+
+	@FXML
+	void updateStudentInfoPage(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("updateStudentInfoForm.fxml"));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	@FXML
+	void backToUserDashBoard(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("userDashboardTest.fxml"));
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -227,6 +361,38 @@ public class BookController implements Initializable {
 		// TODO Auto-generated method stub
 		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
 			writer.writeObject(books2);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public TreeMap<String, User> readUsers() {
+		users = new TreeMap<>();
+		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+			if (new File(FILE_NAME).length() == 0) {
+				System.out.println("File is empty, initializing empty user list.");
+			} else {
+				users = (TreeMap<String, User>) reader.readObject(); // Reading the entire map
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found, initializing empty user list.");
+		} catch (EOFException e) {
+			System.out.println("Reached end of file, no users found.");
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
+
+	private void writeUsers(TreeMap<String, User> user2) {
+		// TODO Auto-generated method stub
+		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+			writer.writeObject(user2);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

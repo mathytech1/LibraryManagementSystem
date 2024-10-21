@@ -13,6 +13,9 @@
 #labeltitle{
 	-fx-font-size: 30;
 }
+#labelsubtitle{
+	-fx-font-size: 20;
+}
 #loginlabel{
 	-fx-font-size: 20;
 }
@@ -44,6 +47,17 @@
 	-fx-text-fill: "green";
 }
 #bookNotFoundLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "red";
+}
+#bookUpdateGuideLabel{
+	-fx-font-size: 15;
+}
+#successLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "green";
+}
+#errorLabel{
 	-fx-font-size: 13;
 	-fx-text-fill: "red";
 }

@@ -13,7 +13,7 @@
       <Label layoutX="109.0" layoutY="76.0" prefHeight="18.0" prefWidth="88.0" text="Book ID" />
       <Button fx:id="searchBookButton" layoutX="372.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchBook" text="Return" />
       <Button fx:id="backToUserDashboard" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToUserDashBoard" text="&lt; Back" />
-      <Label fx:id="bookNotFoundLabel" layoutX="197.0" layoutY="98.0" prefHeight="18.0" prefWidth="175.0" />
+      <Label fx:id="errorLabel" layoutX="197.0" layoutY="98.0" prefHeight="18.0" prefWidth="175.0" />
       <TableView layoutX="40.0" layoutY="121.0" prefHeight="237.0" prefWidth="498.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Book ID" />
@@ -23,6 +23,6 @@
             <TableColumn prefWidth="65.60003662109375" text="Available" />
         </columns>
       </TableView>
-      <Label fx:id="bookFoundLabel" layoutX="197.0" layoutY="99.0" prefHeight="18.0" prefWidth="175.0" />
+      <Label fx:id="successLabel" layoutX="197.0" layoutY="99.0" prefHeight="18.0" prefWidth="175.0" />
    </children>
 </AnchorPane>
