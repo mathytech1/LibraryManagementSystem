@@ -13,8 +13,8 @@
       <TextField fx:id="usernameTextField" layoutX="391.0" layoutY="130.0" promptText="username" />
       <Button fx:id="loginButton" layoutX="391.0" layoutY="207.0" mnemonicParsing="false" onAction="#userLogin" text="Login" />
       <Label layoutX="391.0" layoutY="291.0" text="New User?" />
-      <Button layoutX="481.0" layoutY="287.0" mnemonicParsing="false" onAction="#switchToUserRegistration" text="Register" />
-      <Button layoutX="444.0" layoutY="207.0" mnemonicParsing="false" onAction="#switchToAdminLogin" text="Switch to Admin" />
+      <Button fx:id="registrationPageButton" layoutX="481.0" layoutY="287.0" mnemonicParsing="false" onAction="#switchToUserRegistration" text="Register" />
+      <Button fx:id="switchToAdminLogin" layoutX="444.0" layoutY="207.0" mnemonicParsing="false" onAction="#switchToAdminLogin" text="Switch to Admin" />
       <Label fx:id="labeltitle" layoutX="-1.0" layoutY="27.0" prefHeight="35.0" prefWidth="600.0" text="Welcome To XYZ Library" />
       <ImageView fitHeight="277.0" fitWidth="337.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -1,13 +1,6 @@
 package application;
 
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
@@ -21,156 +14,182 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-// Handles registration form actions.
 public class RegistrationController {
 	@FXML
-	private TextField registerUserFirstNameTextField;
+	private TextField firstNameTextField;
 	@FXML
-	private TextField registerUserLastNameTextField;
+	private TextField lastNameTextField;
 	@FXML
-	private TextField registerUserUsernameTextField;
+	private TextField usernameTextField;
 	@FXML
-	private PasswordField registerUserPasswordField;
+	private PasswordField passwordField;
 	@FXML
-	private PasswordField registerConfirmPasswordField;
+	private PasswordField confirmPasswordField;
 	@FXML
-	private Label userRegistrationErrorLabel;
+	private TextField oldUsernameTextField;
 	@FXML
-	private Label userRegistrationSuccessLabel;
+	private Label errorLabel;
+	@FXML
+	private Label successLabel;
 
 	private Stage stage;
 	private Scene scene;
+
+	private FileManager fileManager = new FileManager();
 	private TreeMap<String, User> users;
 	private static final String FILE_NAME = "src\\application\\files\\users.dat";
 
+	private String firstName;
+	private String lastName;
+	private String username;
+	private String password;
+	private String confirmPassword;
+	private String role;
+
+	@FXML
 	public void userRegistration(ActionEvent event) {
-		String firstName = registerUserFirstNameTextField.getText();
-		String lastName = registerUserLastNameTextField.getText();
-		String username = registerUserUsernameTextField.getText();
-		String password = registerUserPasswordField.getText();
-		String confirmPassword = registerConfirmPasswordField.getText();
-
-		userRegistrationErrorLabel.setText("");
-		userRegistrationSuccessLabel.setText("");
-
-		users = readUsers();
-
-		if (firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")
-				|| confirmPassword.equals("")) {
-			userRegistrationErrorLabel.setText("Please fill all!");
-		} else if (users.containsKey(username)) {
-			userRegistrationErrorLabel.setText("Username already exists!");
-		} else if (!(password.equals(confirmPassword))) {
-			userRegistrationErrorLabel.setText("Password didn't match!");
-		} else {
-			User user = new User(username, firstName, lastName, password, "Regular");
-			users.put(user.getUsername(), user);
-
-			writeUsers(users);
-
-			TreeMap<String, User> users2 = readUsers();
-			for (User user2 : users2.values()) {
-				System.out.println(user2);
-			}
-
-			userRegistrationSuccessLabel.setText("Successfully registered!");
-		}
-
+		register(event, "Regular");
 	}
 
+	@FXML
 	public void adminRegistration(ActionEvent event) {
-		String firstName = registerUserFirstNameTextField.getText();
-		String lastName = registerUserLastNameTextField.getText();
-		String username = registerUserUsernameTextField.getText();
-		String password = registerUserPasswordField.getText();
-		String confirmPassword = registerConfirmPasswordField.getText();
+		register(event, "Admin");
+	}
 
-		userRegistrationErrorLabel.setText("");
-		userRegistrationSuccessLabel.setText("");
+	private void register(ActionEvent event, String role) {
+		firstName = firstNameTextField.getText();
+		lastName = lastNameTextField.getText();
+		username = usernameTextField.getText();
+		password = passwordField.getText();
+		confirmPassword = confirmPasswordField.getText();
+		this.role = role;
 
-		users = readUsers();
+		users = fileManager.readUsers();
 
-		if (firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")
-				|| confirmPassword.equals("")) {
-			userRegistrationErrorLabel.setText("Please fill all!");
+		if (isInputFieldsEmpty()) {
+			printError("Please fill all!");
 		} else if (users.containsKey(username)) {
-			userRegistrationErrorLabel.setText("Username already exists!");
+			printError("Username already exists!");
 		} else if (!(password.equals(confirmPassword))) {
-			userRegistrationErrorLabel.setText("Password didn't match!");
+			printError("Password didn't match!");
 		} else {
-			User user = new User(username, firstName, lastName, password, "Admin");
+			User user = new User(username, firstName, lastName, password, role);
 			users.put(user.getUsername(), user);
 
-			writeUsers(users);
+			fileManager.writeUsers(users);
 
-			TreeMap<String, User> users2 = readUsers();
+			TreeMap<String, User> users2 = fileManager.readUsers();
 			for (User user2 : users2.values()) {
 				System.out.println(user2);
 			}
 
-			userRegistrationSuccessLabel.setText("Successfully registered!");
-		}
-
-	}
-
-	public void backToAdminDashboard(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("adminDashboard.fxml"));
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			printSuccess(role.equals("Admin") ? user.getLastName() + " has been successfully added to the admin!"
+					: "You have been successfully registered!");
 		}
 	}
 
-	public void backToUserLogin(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private boolean isInputFieldsEmpty() {
+		return firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || password.isEmpty()
+				|| confirmPassword.isEmpty();
 	}
 
-	@SuppressWarnings("unchecked")
-	public TreeMap<String, User> readUsers() {
-		users = new TreeMap<>();
-		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-			if (new File(FILE_NAME).length() == 0) {
-				System.out.println("File is empty, initializing empty user list.");
-			} else {
-				users = (TreeMap<String, User>) reader.readObject(); // Reading the entire map
+	@FXML
+	void updateUsersInfo(ActionEvent event) {
+		updateInfo();
+	}
+
+	@FXML
+	void updateAdminInfo(ActionEvent event) {
+		updateInfo();
+	}
+
+	private void updateInfo() {
+		String oldUsername = oldUsernameTextField.getText();
+		String newUsername = usernameTextField.getText();
+		String firstName = firstNameTextField.getText();
+		String lastName = lastNameTextField.getText();
+		String password = passwordField.getText();
+		String confirmPassword = confirmPasswordField.getText();
+
+		if (oldUsername.isEmpty()) {
+			printError("Please enter old username!");
+		} else if (!password.equals(confirmPassword)) {
+			printError("password didn't match");
+		} else {
+			users = fileManager.readUsers();
+
+			if (users == null) {
+				printError("Sorry, No data found!");
 			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found, initializing empty user list.");
-		} catch (EOFException e) {
-			System.out.println("Reached end of file, no users found.");
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			if (users.containsKey(oldUsername)) {
+				if (newUsername.isEmpty()) {
+					newUsername = users.get(oldUsername).getUsername();
+				}
+				if (firstName.isEmpty()) {
+					firstName = users.get(oldUsername).getFirstName();
+				}
+				if (lastName.isEmpty()) {
+					lastName = users.get(oldUsername).getLastName();
+				}
+				if (password.isEmpty()) {
+					password = users.get(oldUsername).getPassword();
+				}
+
+				User user = new User(newUsername, firstName, lastName, password, "Regular");
+				users.remove(oldUsername);
+				users.put(user.getUsername(), user);
+
+				printSuccess("Info updated successfuly!");
+
+				fileManager.writeUsers(users);
+
+				users = fileManager.readUsers();
+				for (User user2 : users.values()) {
+					System.out.println(user2);
+				}
+
+			} else {
+				printError("Username '" + oldUsername + "' doesn't exist!");
+			}
 		}
-		return users;
 	}
 
-	public void writeUsers(TreeMap<String, User> user2) {
-		// TODO Auto-generated method stub
-		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-			writer.writeObject(user2);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	@FXML
+	public void backToAdminDashboard(ActionEvent event) {
+		switchScene(event, "adminDashboardTest.fxml");
+	}
+
+	@FXML
+	void backToUserDashBoard(ActionEvent event) {
+		switchScene(event, "userDashBoardTest.fxml");
+	}
+
+	@FXML
+	public void backToUserLogin(ActionEvent event) {
+		switchScene(event, "userLogin.fxml");
+	}
+
+	private void switchScene(ActionEvent event, String fxmlFile) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	protected void printError(String error) {
+		errorLabel.setText(error);
+		successLabel.setText("");
+	}
+
+	protected void printSuccess(String success) {
+		successLabel.setText(success);
+		errorLabel.setText("");
+	}
 }

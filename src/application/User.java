@@ -60,6 +60,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+
+	}
+
 	public String getRole() {
 		return role;
 	}

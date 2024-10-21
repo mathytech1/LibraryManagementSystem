@@ -23,41 +23,14 @@
 	-fx-font-size: 10;
 	-fx-text-fill: "red";
 }
-#userregistrationlabel{
-	-fx-font-size: 15;
-}
-#userRegistrationErrorLabel{
-	-fx-font-size: 10;
-	-fx-text-fill: "red";
-}
-#userRegistrationSuccessLabel{
-	-fx-font-size: 10;
-	-fx-text-fill: "green";
-}
-#bookAddErrorLabel{
-	-fx-font-size: 13;
-	-fx-text-fill: "red";
-}
-#bookAddSuccess{
-	-fx-font-size: 13;
-	-fx-text-fill: "green";
-}
-#bookFoundLabel{
-	-fx-font-size: 13;
-	-fx-text-fill: "green";
-}
-#bookNotFoundLabel{
-	-fx-font-size: 13;
-	-fx-text-fill: "red";
-}
-#bookUpdateGuideLabel{
+#registrationlabel{
 	-fx-font-size: 15;
 }
 #successLabel{
-	-fx-font-size: 13;
+	-fx-font-size: 10;
 	-fx-text-fill: "green";
 }
 #errorLabel{
-	-fx-font-size: 13;
+	-fx-font-size: 10;
 	-fx-text-fill: "red";
 }

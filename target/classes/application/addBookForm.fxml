@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookManagementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookController">
    <children>
       <Label layoutX="120.0" layoutY="149.0" prefHeight="18.0" prefWidth="78.0" text="Title" />
       <Label layoutX="120.0" layoutY="195.0" prefHeight="18.0" prefWidth="78.0" text="Author" />
@@ -17,8 +17,8 @@
       <TextField fx:id="bookTitleTextField" layoutX="198.0" layoutY="145.0" prefHeight="26.0" prefWidth="175.0" promptText="book title" />
       <Label layoutX="122.0" layoutY="105.0" prefHeight="18.0" prefWidth="77.0" text="Book ID" />
       <Button fx:id="addBookButton" layoutX="249.0" layoutY="288.0" mnemonicParsing="false" onAction="#addBook" text="Add Book" />
-      <Button fx:id="backToAdminDashboard" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminDashBoard" text="&lt; Back" />
-      <Label fx:id="bookAddErrorLabel" layoutX="191.0" layoutY="76.0" prefHeight="18.0" prefWidth="190.0" />
-      <Label fx:id="bookAddSuccess" layoutX="198.0" layoutY="76.0" prefHeight="18.0" prefWidth="175.0" />
+      <Button fx:id="backToAdminDashboard" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminDashboard" text="&lt; Back" />
+      <Label fx:id="errorLabel" layoutX="191.0" layoutY="76.0" prefHeight="18.0" prefWidth="190.0" />
+      <Label fx:id="successLabel" layoutX="198.0" layoutY="76.0" prefHeight="18.0" prefWidth="175.0" />
    </children>
 </AnchorPane>
