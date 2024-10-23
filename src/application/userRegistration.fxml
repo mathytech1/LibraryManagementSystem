@@ -26,5 +26,10 @@
       <PasswordField fx:id="confirmPasswordField" layoutX="396.0" layoutY="259.0" promptText="confirm password" />
       <Label fx:id="errorLabel" layoutX="396.0" layoutY="99.0" prefHeight="18.0" prefWidth="150.0" />
       <Label fx:id="successLabel" layoutX="393.0" layoutY="99.0" prefHeight="18.0" prefWidth="150.0" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="122.0" text="*" textFill="#f70505" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="154.0" text="*" textFill="#f70505" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="185.0" text="*" textFill="#f70505" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="223.0" text="*" textFill="#f70505" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="263.0" text="*" textFill="#f70505" />
    </children>
 </AnchorPane>

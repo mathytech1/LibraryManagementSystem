@@ -65,9 +65,9 @@ public class AdminController extends BookController implements Initializable {
 	}
 
 	@FXML
-	void logout(ActionEvent event) {
+	void logout(ActionEvent event) throws IOException {
 		LoginController logController = new LoginController();
-		logController.logout(event, scenePane);
+		logController.logout(event);
 	}
 
 	@FXML

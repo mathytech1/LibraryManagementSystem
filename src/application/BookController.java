@@ -174,8 +174,8 @@ public class BookController {
 			tableView.getItems().clear();
 			for (Book book : books.values()) {
 				if (book.getBookTitle().toLowerCase().contains(bookTitle.toLowerCase())) {
-					ObservableList<Book> books = tableView.getItems();
-					books.add(book);
+					ObservableList<Book> obsBooks = tableView.getItems();
+					obsBooks.add(book);
 
 					System.out.println(book);
 					counter++;

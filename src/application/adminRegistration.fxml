@@ -31,5 +31,10 @@
       <Button fx:id="removeUser" layoutX="343.0" layoutY="329.0" mnemonicParsing="false" onMouseClicked="#removeUser" text="Remove User" />
       <Label fx:id="errorLabel" layoutX="16.0" layoutY="45.0" prefHeight="18.0" prefWidth="414.0" />
       <Label fx:id="successLabel" layoutX="16.0" layoutY="45.0" prefHeight="18.0" prefWidth="414.0" />
+      <Label fx:id="requiredLabel" layoutX="584.0" layoutY="103.0" text="*" textFill="#ef0404" />
+      <Label fx:id="requiredLabel" layoutX="584.0" layoutY="135.0" text="*" textFill="#ef0404" />
+      <Label fx:id="requiredLabel" layoutX="584.0" layoutY="166.0" text="*" textFill="#ef0404" />
+      <Label fx:id="requiredLabel" layoutX="584.0" layoutY="204.0" text="*" textFill="#ef0404" />
+      <Label fx:id="requiredLabel" layoutX="584.0" layoutY="245.0" text="*" textFill="#ef0404" />
    </children>
 </AnchorPane>

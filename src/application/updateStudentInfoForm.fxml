@@ -10,21 +10,22 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationController">
    <children>
-      <TextField fx:id="firstNameTextField" layoutX="396.0" layoutY="151.0" promptText="first name" />
-      <TextField fx:id="lastNameTextField" layoutX="396.0" layoutY="185.0" promptText="last name" />
+      <TextField fx:id="firstNameTextField" layoutX="396.0" layoutY="151.0" promptText="first name (optional)" />
+      <TextField fx:id="lastNameTextField" layoutX="396.0" layoutY="185.0" promptText="last name (optional)" />
       <Button fx:id="updateUsersInfoButton" layoutX="394.0" layoutY="312.0" mnemonicParsing="false" onAction="#updateUsersInfo" text="Update" />
       <Button fx:id="backToUserDashboard" layoutX="485.0" layoutY="312.0" mnemonicParsing="false" onAction="#backToUserDashBoard" prefHeight="26.0" prefWidth="59.0" text="&lt; Back" />
       <Label fx:id="labelsubtitle" layoutX="-1.0" layoutY="27.0" prefHeight="35.0" prefWidth="600.0" text="Update Your Profile" />
-      <TextField fx:id="usernameTextField" layoutX="396.0" layoutY="117.0" promptText="New username" />
+      <TextField fx:id="usernameTextField" layoutX="396.0" layoutY="117.0" promptText="new username (optional)" />
       <ImageView fitHeight="267.0" fitWidth="355.0" layoutX="14.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/library1.jpeg" />
          </image>
       </ImageView>
-      <PasswordField fx:id="passwordField" layoutX="396.0" layoutY="218.0" promptText="New password" />
+      <PasswordField fx:id="passwordField" layoutX="396.0" layoutY="218.0" promptText="New password (optional)" />
       <PasswordField fx:id="confirmPasswordField" layoutX="396.0" layoutY="250.0" promptText="confirm password" />
       <Label fx:id="errorLabel" layoutX="394.0" layoutY="53.0" prefHeight="18.0" prefWidth="150.0" />
       <Label fx:id="successLabel" layoutX="395.0" layoutY="49.0" prefHeight="26.0" prefWidth="150.0" />
       <TextField fx:id="oldUsernameTextField" layoutX="395.0" layoutY="81.0" prefHeight="26.0" prefWidth="150.0" promptText="Old username" />
+      <Label fx:id="requiredLabel" layoutX="546.0" layoutY="81.0" text="*" textFill="#fc0505" />
    </children>
 </AnchorPane>

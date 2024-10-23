@@ -34,3 +34,12 @@
 	-fx-font-size: 10;
 	-fx-text-fill: "red";
 }
+#requiredLabel{
+	-fx-font-size: 13;
+	-fx-text-fill: "red";
+}
+#bookUpdateGuideLabel{
+	-fx-font-size: 13;
+	-fx-alignment: center;
+	-fx-text-fill: "cyan"
+}

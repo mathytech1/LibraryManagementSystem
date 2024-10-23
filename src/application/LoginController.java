@@ -16,7 +16,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -107,16 +106,22 @@ public class LoginController {
 		}
 	}
 
-	public void logout(ActionEvent event, AnchorPane scenePane) {
+	public void logout(ActionEvent event) throws IOException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
 		alert.setContentText("Are you sure you want to exit?");
 
 		if (alert.showAndWait().get() == ButtonType.OK) {
-			stage = (Stage) scenePane.getScene().getWindow();
-			System.out.println("Successfuly logout");
-			stage.close();
+			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.show();
+//			stage = (Stage) scenePane.getScene().getWindow();
+//			System.out.println("Successfuly logout");
+//			stage.close();
 		}
 	}
 
