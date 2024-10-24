@@ -38,6 +38,7 @@ public class LoginController {
 	private FileManager fileManager = new FileManager();
 	private TreeMap<String, User> users;
 	private static final String FILE_NAME = "src\\application\\files\\users.dat";
+	private String currentLogin;
 
 	@FXML
 	void switchToAdminLogin(ActionEvent event) {
@@ -68,6 +69,7 @@ public class LoginController {
 				System.out.println(book);
 			}
 
+			fileManager.writeLogin(username);
 			switchScene(event, "userDashboardTest.fxml");
 
 		} else {
@@ -84,7 +86,11 @@ public class LoginController {
 
 		if (users.containsKey(username) && password.equals(users.get(username).getPassword())
 				&& (users.get(username).getRole().equals("Admin") || users.get(username).getRole().equals("Super"))) {
+
+			// Save current Logged in admin to the file
+			fileManager.writeLogin(username);
 			switchScene(event, "adminDashboardTest.fxml");
+
 			TreeMap<String, Book> books = fileManager.readBooks();
 			for (Book book : books.values()) {
 				System.out.println(book);
@@ -107,10 +113,11 @@ public class LoginController {
 	}
 
 	public void logout(ActionEvent event) throws IOException {
+		currentLogin = fileManager.readLogin();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Logout");
 		alert.setHeaderText("You're about to logout!");
-		alert.setContentText("Are you sure you want to exit?");
+		alert.setContentText(currentLogin + ", Are you sure you want to exit?");
 
 		if (alert.showAndWait().get() == ButtonType.OK) {
 			Parent root = FXMLLoader.load(getClass().getResource("userLogin.fxml"));
@@ -119,6 +126,9 @@ public class LoginController {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
+
+			// As the user logout, we should clear current logged in data from the file
+			fileManager.writeLogin("");
 //			stage = (Stage) scenePane.getScene().getWindow();
 //			System.out.println("Successfuly logout");
 //			stage.close();

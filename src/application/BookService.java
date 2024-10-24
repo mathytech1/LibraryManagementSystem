@@ -33,6 +33,8 @@ public class BookService {
 
 	protected FileManager fileManager = new FileManager();
 	protected TreeMap<String, Book> books;
+	private String currentLogin;
+	private TreeMap<String, String> borrowedBooks = new TreeMap<>();
 
 	@FXML
 	public void searchBook(MouseEvent event) {
@@ -81,6 +83,12 @@ public class BookService {
 				books.put(selectedBook.getBookID(), selectedBook);
 
 				fileManager.writeBooks(books);
+
+				currentLogin = fileManager.readLogin();
+
+				borrowedBooks.put(selectedBook.getBookID(), currentLogin);
+
+				fileManager.writeBorrowedBooks(borrowedBooks);
 			}
 		}
 	}
@@ -90,20 +98,26 @@ public class BookService {
 		Book selectedBook = tableView.getSelectionModel().getSelectedItem();
 		int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 
+		currentLogin = fileManager.readLogin();
+		borrowedBooks = fileManager.readBorrowedBooks();
+		books = fileManager.readBooks();
+
 		if (selectedBook == null) {
 			printError("Please select a book to be returned!");
 		} else {
-			if (selectedBook.getIsAvailable().equalsIgnoreCase("available")) {
-				printError("You didn't borrow " + selectedBook.getBookTitle());
-			} else {
+			if (borrowedBooks.containsKey(selectedBook.getBookID())
+					&& borrowedBooks.get(selectedBook.getBookID()).equals(currentLogin)) {
 				selectedBook.setAvailable("Available");
 				tableView.getItems().set(selectedIndex, selectedBook);
 
-				books = fileManager.readBooks();
 				books.remove(selectedBook.getBookID());
 				books.put(selectedBook.getBookID(), selectedBook);
 				fileManager.writeBooks(books);
+				borrowedBooks.remove(selectedBook.getBookID());
+				fileManager.writeBorrowedBooks(borrowedBooks);
 				printSuccess("You have returned " + selectedBook.getBookTitle());
+			} else {
+				printError("You didn't borrow " + selectedBook.getBookTitle());
 			}
 		}
 	}
