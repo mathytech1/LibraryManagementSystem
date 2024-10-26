@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.TreeMap;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,40 +23,42 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+// Controller for managing books within the application
 public class BookController {
 	@FXML
-	private TextField bookIdTextField;
+	private TextField bookIdTextField; // TextField for Book ID
 	@FXML
-	private TextField bookTitleTextField;
+	private TextField bookTitleTextField; // TextField for Book Title
 	@FXML
-	private TextField bookAuthorTextField;
+	private TextField bookAuthorTextField; // TextField for Book Author
 	@FXML
-	private DatePicker bookPubYear;
+	private DatePicker bookPubYear; // DatePicker for Book Published Year
 	@FXML
-	protected Label errorLabel;
+	protected Label errorLabel; // Label for displaying error messages
 	@FXML
-	protected Label successLabel;
+	protected Label successLabel; // Label for displaying success messages
 	@FXML
-	protected TableColumn<Book, String> bookIDCol;
+	protected TableColumn<Book, String> bookIDCol; // Table column for Book ID
 	@FXML
-	protected TableColumn<Book, String> titleCol;
+	protected TableColumn<Book, String> titleCol; // Table column for Book Title
 	@FXML
-	protected TableColumn<Book, String> authorCol;
+	protected TableColumn<Book, String> authorCol; // Table column for Book Author
 	@FXML
-	protected TableColumn<Book, String> availableCOl;
+	protected TableColumn<Book, String> availableCOl; // Table column for Book Availability
 	@FXML
-	protected TableColumn<Book, LocalDate> pubYearCol;
+	protected TableColumn<Book, LocalDate> pubYearCol; // Table column for Published Year
 	@FXML
-	protected TableView<Book> tableView;
+	protected TableView<Book> tableView; // TableView for displaying books
 	@FXML
-	protected ToggleGroup group;
+	protected ToggleGroup group; // ToggleGroup for book availability (Yes/No)
 
-	private Stage stage;
-	private Scene scene;
+	private Stage stage; // Reference to primary stage
+	private Scene scene; // Scene object to hold new scene content
 
-	protected FileManager fileManager = new FileManager();
-	protected TreeMap<String, Book> books;
+	protected FileManager fileManager = new FileManager(); // Manages file reading and writing
+	protected TreeMap<String, Book> books; // Stores book data
 
+	// Adds a new book based on user input
 	@FXML
 	public void addBook(ActionEvent event) {
 		String bookID = bookIdTextField.getText();
@@ -74,8 +75,9 @@ public class BookController {
 			} else {
 				books.put(newBook.getBookID(), newBook);
 				fileManager.writeBooks(books);
-				printSuccess("Book Added Successfuly!");
+				printSuccess("Book Added Successfully!");
 
+				// Display updated list of books
 				books = fileManager.readBooks();
 				for (Book book : books.values()) {
 					System.out.println(book);
@@ -87,6 +89,7 @@ public class BookController {
 		}
 	}
 
+	// Updates an existing book's details
 	@FXML
 	public void updateBook(ActionEvent event) {
 		String bookID = bookIdTextField.getText();
@@ -112,31 +115,23 @@ public class BookController {
 				available = books.get(bookID).getIsAvailable();
 			} else {
 				available = selectedRadioButton.getText();
-				if (available.equals("Yes")) {
-					available = "Available";
-				} else {
-					available = "Unavailable";
-				}
+				available = available.equals("Yes") ? "Available" : "Unavailable";
 			}
 
 			Book book = new Book(bookID, bookTitle, bookAuthor, publishedYear);
 			book.setAvailable(available);
 
-			books.remove(book.getBookID());
+			// Update the book in the TreeMap
 			books.put(book.getBookID(), book);
 			fileManager.writeBooks(books);
 
-			System.out.println(bookID);
-			System.out.println(bookTitle);
-			System.out.println(bookAuthor);
-			System.out.println(publishedYear);
-
-			printSuccess("Book Updated Successfuly!");
+			printSuccess("Book Updated Successfully!");
 		} else {
-			printError("Could not find '" + bookID + "!");
+			printError("Could not find '" + bookID + "'!");
 		}
 	}
 
+	// Removes the selected book from the system
 	@FXML
 	public void removeBook(MouseEvent event) {
 		Book book = tableView.getSelectionModel().getSelectedItem();
@@ -146,21 +141,23 @@ public class BookController {
 		} else {
 			String title = book.getBookTitle();
 
+			// Confirmation dialog for deletion
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Remove");
 			alert.setHeaderText("You're about to remove a book!");
 			alert.setContentText("Are you sure you want to remove '" + title + "'?");
 
 			if (alert.showAndWait().get() == ButtonType.OK) {
-				tableView.getItems().remove(book);
+				tableView.getItems().remove(book); // Remove from TableView
 				books = fileManager.readBooks();
-				books.remove(book.getBookID());
-				fileManager.writeBooks(books);
-				printSuccess(book.getBookTitle() + " is successfuly removed!");
+				books.remove(book.getBookID()); // Remove from TreeMap
+				fileManager.writeBooks(books); // Write updated data back to file
+				printSuccess(title + " successfully removed!");
 			}
 		}
 	}
 
+	// Searches for books by title in the stored data
 	@FXML
 	public void searchBook(MouseEvent event) {
 		String bookTitle = bookTitleTextField.getText();
@@ -174,24 +171,23 @@ public class BookController {
 			tableView.getItems().clear();
 			for (Book book : books.values()) {
 				if (book.getBookTitle().toLowerCase().contains(bookTitle.toLowerCase())) {
-					ObservableList<Book> obsBooks = tableView.getItems();
-					obsBooks.add(book);
-
-					System.out.println(book);
+					tableView.getItems().add(book);
 					counter++;
 				}
 			}
 			if (counter == 0) {
-				printError("0 matchs found for search '" + bookTitle + "'");
+				printError("0 matches found for search '" + bookTitle + "'");
 			}
 		}
 	}
 
+	// Navigates back to the admin dashboard
 	@FXML
 	void backToAdminDashboard(ActionEvent event) {
 		switchScene(event, "adminDashboardTest.fxml");
 	}
 
+	// Switches to a new scene
 	void switchScene(ActionEvent event, String fxmlFile) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
@@ -207,11 +203,13 @@ public class BookController {
 		}
 	}
 
+	// Displays error messages to the user
 	protected void printError(String error) {
 		errorLabel.setText(error);
 		successLabel.setText("");
 	}
 
+	// Displays success messages to the user
 	protected void printSuccess(String success) {
 		successLabel.setText(success);
 		errorLabel.setText("");

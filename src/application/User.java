@@ -2,28 +2,26 @@ package application;
 
 import java.io.Serializable;
 
-// Common functionality for Admin and RegularUser.
+// Represents a generic user in the system, with fields and methods common to all user types.
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String firstName;
-	private String lastName;
-	private String userID;
-	private String username;
-	private String password;
-	private String role;
-//	private static int idNumber = 1000;
+	private static final long serialVersionUID = 1L; // Ensures compatibility during serialization
+	private String firstName; // User's first name
+	private String lastName; // User's last name
+	private String username; // User's chosen username
+	private String password; // User's password
+	private String role; // Role of the user (e.g., Admin, RegularUser)
 
+	// Constructor to initialize a new User with essential information
 	public User(String username, String firstName, String lastName, String password, String role) {
-		// idNumber++;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		// this.userID = "S" + idNumber;
 		this.password = password;
 		this.role = role;
 	}
 
+	// Getter and setter for firstName
 	public String getFirstName() {
 		return firstName;
 	}
@@ -32,6 +30,7 @@ public class User implements Serializable {
 		this.firstName = firstName;
 	}
 
+	// Getter and setter for lastName
 	public String getLastName() {
 		return lastName;
 	}
@@ -40,10 +39,7 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getUserID() {
-		return userID;
-	}
-
+	// Getter and setter for username
 	public String getUsername() {
 		return username;
 	}
@@ -52,6 +48,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+	// Getter and setter for password
 	public String getPassword() {
 		return password;
 	}
@@ -60,29 +57,20 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	// Setter for role
 	public void setRole(String role) {
 		this.role = role;
-
 	}
 
+	// Getter for role
 	public String getRole() {
 		return role;
 	}
 
-	public void login(String username, String password) {
-
-	}
-
-	public void logout() {
-
-	}
-
+	// Override toString to provide a readable representation of a User instance
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", role=" + role
 				+ "]";
 	}
-
-	// abstract public void viewDashboard();
-
 }

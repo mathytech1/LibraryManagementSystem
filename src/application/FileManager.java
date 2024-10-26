@@ -11,104 +11,73 @@ import java.io.ObjectOutputStream;
 import java.util.TreeMap;
 
 public class FileManager {
-	private TreeMap<String, Book> books;
-	private TreeMap<String, User> users;
-	private TreeMap<String, String> borrowedBooks;
-	private String loginData;
+	private String loginData; // Store login data
+	// File paths for data storage
 	private final String BOOK_FILE_NAME = "src\\application\\files\\books.dat";
 	private final String USER_FILE_NAME = "src\\application\\files\\users.dat";
 	private final String USERLOGIN_FILE_NAME = "src\\application\\files\\login.dat";
 	private final String BORROWED_BOOKS_FILE_NAME = "src\\application\\files\\borrowedBooks.dat";
 
+	// Generic method to read objects from a file
 	@SuppressWarnings("unchecked")
+	public <T> TreeMap<String, T> readFromFile(String fileName) {
+		TreeMap<String, T> dataMap = new TreeMap<>();
+		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(fileName))) {
+			dataMap = (TreeMap<String, T>) reader.readObject(); // Read entire map
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found, initializing empty list.");
+		} catch (EOFException e) {
+			System.out.println("Reached end of file, no data found.");
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return dataMap;
+	}
+
+	// Generic method to write objects to a file
+	public <T> void writeToFile(String fileName, TreeMap<String, T> dataMap) {
+		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(fileName))) {
+			writer.writeObject(dataMap); // Write entire map
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Specific methods for your current implementation
 	public TreeMap<String, Book> readBooks() {
-		books = new TreeMap<>();
-		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(BOOK_FILE_NAME))) {
-			books = (TreeMap<String, Book>) reader.readObject(); // Reading the entire map
-		} catch (FileNotFoundException e) {
-			// If the file doesn't exist, return an empty map
-			System.out.println("File not found, initializing empty book list.");
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return books;
+		return readFromFile(BOOK_FILE_NAME);
 	}
 
-	public void writeBooks(TreeMap<String, Book> books2) {
-		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(BOOK_FILE_NAME))) {
-			writer.writeObject(books2);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void writeBooks(TreeMap<String, Book> books) {
+		writeToFile(BOOK_FILE_NAME, books);
 	}
 
-	@SuppressWarnings("unchecked")
 	public TreeMap<String, User> readUsers() {
-		users = new TreeMap<>();
-		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(USER_FILE_NAME))) {
-			if (new File(USER_FILE_NAME).length() == 0) {
-				System.out.println("File is empty, initializing empty user list.");
-			} else {
-				users = (TreeMap<String, User>) reader.readObject(); // Reading the entire map
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found, initializing empty user list.");
-		} catch (EOFException e) {
-			System.out.println("Reached end of file, no users found.");
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return users;
+		return readFromFile(USER_FILE_NAME);
 	}
 
-	public void writeUsers(TreeMap<String, User> user2) {
-		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(USER_FILE_NAME))) {
-			writer.writeObject(user2);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void writeUsers(TreeMap<String, User> users) {
+		writeToFile(USER_FILE_NAME, users);
 	}
 
-	@SuppressWarnings("unchecked")
 	public TreeMap<String, String> readBorrowedBooks() {
-		borrowedBooks = new TreeMap<>();
-		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(BORROWED_BOOKS_FILE_NAME))) {
-			if (new File(BORROWED_BOOKS_FILE_NAME).length() == 0) {
-				System.out.println("File is empty, initializing empty borrowed books map.");
-			} else {
-				borrowedBooks = (TreeMap<String, String>) reader.readObject(); // Reading the entire map
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found, initializing empty borrowed books map.");
-		} catch (EOFException e) {
-			System.out.println("Reached end of file, no users found.");
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return borrowedBooks;
+		return readFromFile(BORROWED_BOOKS_FILE_NAME);
 	}
 
-	public void writeBorrowedBooks(TreeMap<String, String> borrowedBooks2) {
-		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(BORROWED_BOOKS_FILE_NAME))) {
-			writer.writeObject(borrowedBooks2);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void writeBorrowedBooks(TreeMap<String, String> borrowedBooks) {
+		writeToFile(BORROWED_BOOKS_FILE_NAME, borrowedBooks);
 	}
 
+	// Reads the login data from the file and returns it as a String
 	public String readLogin() {
 		loginData = new String();
 		try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(USERLOGIN_FILE_NAME))) {
 			if (new File(USERLOGIN_FILE_NAME).length() == 0) {
 				System.out.println("File is empty, initializing empty login string.");
 			} else {
-				loginData = (String) reader.readObject(); // Reading the entire map
+				loginData = (String) reader.readObject(); // Read entire map
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found, initializing empty login string.");
@@ -121,9 +90,10 @@ public class FileManager {
 		return loginData;
 	}
 
+	// Writes the current login data to the file
 	public void writeLogin(String currentLogin) {
 		try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(USERLOGIN_FILE_NAME))) {
-			writer.writeObject(currentLogin);
+			writer.writeObject(currentLogin); // Write login data
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
