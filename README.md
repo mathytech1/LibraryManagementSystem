@@ -31,13 +31,13 @@ A simple **Library Management System** built with Java, designed to manage book 
 ## Screenshots
 
 ### User Login Screen
-![Login Screen](screenshots/userLogin.png))
+![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/userLogin.png))
 
 ### User Login Incroct Input Screen
-![Login Screen](screenshots/incorrectLogin.png))
+![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/incorrectLogin.png))
 
 ### User Dashboard
-![User Dashboard](screenshots/userDashboard.png)
+![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/userDashboard.png)
 
 
 ## License
