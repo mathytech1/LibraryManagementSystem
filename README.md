@@ -33,11 +33,33 @@ A simple **Library Management System** built with Java, designed to manage book 
 ### User Login Screen
 ![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/userLogin.png))
 
+### User Registration Screen
+![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/userRegistration.png))
+
 ### User Login Incroct Input Screen
 ![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/incorrectLogin.png))
 
 ### User Dashboard
 ![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/userDashboard.png)
+
+### Search Book
+![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/searchBook.png)
+
+### Borrow Book
+![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/borrowBook.png)
+
+### Return Book
+![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/returnBook.png)
+
+### Admin Login Screen
+![Login Screen](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/adminLogin.png))
+
+### Admin Dashboard
+![User Dashboard](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/adminDashboard.png)
+
+### Manage Admins
+![Manage Admins](https://github.com/mathytech1/LibraryManagementSystem/blob/main/src/screenshots/manageAdmins.png)
+
 
 
 ## License
