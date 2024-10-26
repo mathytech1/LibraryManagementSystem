@@ -28,6 +28,18 @@ A simple **Library Management System** built with Java, designed to manage book 
 - `Streams and Lambda Expressions`
 - `Maven`
 
+## Screenshots
+
+### User Login Screen
+![Login Screen](screenshots/userLogin.png))
+
+### User Login Incroct Input Screen
+![Login Screen](screenshots/incorrectLogin.png))
+
+### User Dashboard
+![User Dashboard](screenshots/userDashboard.png)
+
+
 ## License
 This project is licensed under the MIT License.
   
