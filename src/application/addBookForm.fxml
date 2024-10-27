@@ -13,7 +13,7 @@
       <TextField fx:id="bookIdTextField" layoutX="198.0" layoutY="101.0" prefHeight="26.0" prefWidth="175.0" promptText="book Id" />
       <TextField fx:id="bookAuthorTextField" layoutX="198.0" layoutY="192.0" prefHeight="26.0" prefWidth="175.0" promptText="book author" />
       <DatePicker fx:id="bookPubYear" layoutX="198.0" layoutY="235.0" promptText="dd/mm/yyyy" />
-      <Label layoutX="120.0" layoutY="238.0" prefHeight="18.0" prefWidth="78.0" text="Author" />
+      <Label fx:id="publishedLabel" layoutX="39.0" layoutY="238.0" prefHeight="18.0" prefWidth="158.0" text="Published Year" />
       <TextField fx:id="bookTitleTextField" layoutX="198.0" layoutY="145.0" prefHeight="26.0" prefWidth="175.0" promptText="book title" />
       <Label layoutX="122.0" layoutY="105.0" prefHeight="18.0" prefWidth="77.0" text="Book ID" />
       <Button fx:id="addBookButton" layoutX="249.0" layoutY="288.0" mnemonicParsing="false" onAction="#addBook" text="Add Book" />

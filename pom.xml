@@ -20,7 +20,7 @@
       <artifactId>javafx-swing</artifactId>
       <version>23</version>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
@@ -29,6 +29,13 @@
 	    <groupId>org.junit.jupiter</groupId>
 	    <artifactId>junit-jupiter-api</artifactId>
 	    <version>5.10.3</version>
+    </dependency>
+    <!-- Mockito JUnit 5 integration -->
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>5.4.0</version> <!-- Adjust the version as needed -->
+        <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

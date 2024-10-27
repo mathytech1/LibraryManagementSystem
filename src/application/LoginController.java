@@ -62,7 +62,7 @@ public class LoginController {
 	// Processes user login, checks credentials, and directs to user dashboard if
 	// valid
 	@FXML
-	void userLogin(ActionEvent event) {
+	public void userLogin(ActionEvent event) {
 		String username = usernameTextField.getText();
 		String password = passwordTextField.getText();
 
